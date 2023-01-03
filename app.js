@@ -58,6 +58,11 @@ class Bd {
         }
         return despesas
     }
+
+    pesquisar(despesa) {
+        console.log(despesa)
+    }
+
 }
 
 let bd = new Bd()
@@ -82,7 +87,7 @@ function cadastrarDespesa() {
     )
 
         if(despesa.validarDados()){
-            //bd.gravar(despesa)
+           // bd.gravar(despesa)
 
             document.getElementById('modal_titulo').innerHTML = "Registro inserido com sucesso"
             document.getElementById('modal_titulo_div').className = 'modal-header text-success'
@@ -91,6 +96,14 @@ function cadastrarDespesa() {
             document.getElementById('modal_botao').innerHTML = 'Voltar'
 
             $('#modalRegistraDespesa').modal('show')
+
+            ano.value = ''
+            mes.value = ''
+            dia.value = ''
+            tipo.value = ''
+            descricao.value = ''
+            valor.value = ''
+
         }else {
 
             document.getElementById('modal_titulo').innerHTML = "Erro na inclusão do registro"
@@ -102,7 +115,6 @@ function cadastrarDespesa() {
             $('#modalRegistraDespesa').modal('show')
         }
 
-    bd.gravar(despesa)
 }
  
 
@@ -113,8 +125,7 @@ function carregaListaDespesa(){
 
     let listaDespesas = document.getElementById('listaDespesas')
 
-    despesas.forEach(
-        function(d){
+    despesas.forEach(function(d){
 
         
         let linha = listaDespesas.insertRow()
@@ -139,4 +150,17 @@ function carregaListaDespesa(){
         linha.insertCell(3).innerHTML = d.valor
     })
 
+}
+
+function pesquisarDespesas() {
+    let ano = document.getElementById('ano')
+    let mes = document.getElementById('mes')
+    let dia = document.getElementById('dia')
+    let tipo = document.getElementById('tipo')
+    let descricao = document.getElementById('descricao')
+    let valor = document.getElementById('valor')
+
+    let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
+
+    bd.pesquisar(despesa)
 }
